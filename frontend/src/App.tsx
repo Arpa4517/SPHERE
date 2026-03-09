@@ -1,0 +1,104 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import RegisterPage from './pages/RegisterPage';
+import LoginPage from './pages/LoginPage';
+import TwoFactorPage from './pages/TwoFactorPage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import ProfilePage from './pages/ProfilePage';
+import AdminDashboard from './pages/AdminDashboard';
+import DoctorsListPage from './pages/DoctorsListPage';
+import BookAppointmentPage from './pages/BookAppointmentPage';
+import AppointmentsPage from './pages/AppointmentsPage';
+import DiagnosesPage from './pages/DiagnosesPage';
+import CreateDiagnosisPage from './pages/CreateDiagnosisPage';
+import DiagnosisDetailPage from './pages/DiagnosisDetailPage';
+import ProtectedRoute from './components/ProtectedRoute';
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/verify-2fa" element={<TwoFactorPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        
+        <Route 
+          path="/profile" 
+          element={
+            <ProtectedRoute>
+              <ProfilePage />
+            </ProtectedRoute>
+          } 
+        />
+        
+        <Route 
+          path="/doctors" 
+          element={
+            <ProtectedRoute>
+              <DoctorsListPage />
+            </ProtectedRoute>
+          } 
+        />
+        
+        <Route 
+          path="/book-appointment/:doctorId" 
+          element={
+            <ProtectedRoute>
+              <BookAppointmentPage />
+            </ProtectedRoute>
+          } 
+        />
+        
+        <Route 
+          path="/appointments" 
+          element={
+            <ProtectedRoute>
+              <AppointmentsPage />
+            </ProtectedRoute>
+          } 
+        />
+        
+        <Route 
+          path="/diagnoses" 
+          element={
+            <ProtectedRoute>
+              <DiagnosesPage />
+            </ProtectedRoute>
+          } 
+        />
+        
+        <Route 
+          path="/create-diagnosis" 
+          element={
+            <ProtectedRoute requiredRole="doctor">
+              <CreateDiagnosisPage />
+            </ProtectedRoute>
+          } 
+        />
+        
+        <Route 
+          path="/diagnosis/:diagnosisId" 
+          element={
+            <ProtectedRoute>
+              <DiagnosisDetailPage />
+            </ProtectedRoute>
+          } 
+        />
+        
+        <Route 
+          path="/admin" 
+          element={
+            <ProtectedRoute requiredRole="admin">
+              <AdminDashboard />
+            </ProtectedRoute>
+          } 
+        />
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
