@@ -1,6 +1,6 @@
 # SPHERE — Secure Patient Health Encrypted Record Environment
 
-> A cryptographically secure patient health record system built for Cryptography and Cryptanalysis course.
+A cryptographically secure patient health record system built for Cryptography and Cryptanalysis course.
 SPHERE is a full-stack web application that provides end-to-end encrypted storage and management of sensitive patient health records. All cryptographic algorithms — RSA, ECC, SHA-256, and HMAC — are implemented **from scratch** without relying on any built-in cryptographic libraries.
 
 The system addresses a critical gap in modern healthcare IT: patient records stored in plaintext or with weak encryption are highly vulnerable to breaches. SPHERE enforces encryption at rest, multi-factor authentication, role-based access control, and tamper-proof data integrity verification.
@@ -64,8 +64,6 @@ The system addresses a critical gap in modern healthcare IT: patient records sto
 
 ---
 
-
-
 ## User Roles
 
 ### 👤 Patient
@@ -90,43 +88,10 @@ The system addresses a critical gap in modern healthcare IT: patient records sto
 
 ---
 
-## Security Design
+## Contribution
+Role-based access control, 2FA, Data encryption/decryption, Profile view & edit, Frontend design
 
-### Encryption at Rest
 
-All sensitive fields in the database are encrypted before write and decrypted on read via Python property getters/setters on the ORM model:
-
-```
-User.username  →  RSA-1024 encrypt  →  username_encrypted (DB)
-User.email     →  RSA-1024 encrypt  →  email_encrypted (DB)
-User.age       →  ECC secp256k1     →  age_encrypted (DB)
-Diagnosis.text →  RSA + ECC (multi) →  diagnosis_encrypted (DB)
-```
-
-SHA-256 hash indexes (`username_hash`, `email_hash`) allow database lookups without exposing plaintext.
-
-### Password Storage
-
-```
-stored = salt + "$" + SHA256(salt + plaintext_password)
-```
-
-Verification uses constant-time comparison to prevent timing attacks.
-
-### Two-Factor Authentication Flow
-
-```
-1. User submits email + password
-2. Server validates credentials
-3. Server generates 6-digit OTP, sends to email
-4. Server returns short-lived temp_token embedding the OTP
-5. User submits OTP + temp_token
-6. Server verifies OTP, issues permanent access_token (JWT)
-```
-
-### Data Integrity (HMAC)
-
-MAC tags are computed and stored for every critical write operation. Before any data modification, the MAC is re-verified. Records with missing or invalid MAC tags are rejected.
 
 ---
 
