@@ -4,7 +4,7 @@ A cryptographically secure patient health record system built for Cryptography a
 SPHERE is a full-stack web application that provides end-to-end encrypted storage and management of sensitive patient health records. All cryptographic algorithms — RSA, ECC, SHA-256, and HMAC — are implemented **from scratch** without relying on any built-in cryptographic libraries.
 
 The system addresses a critical gap in modern healthcare IT: patient records stored in plaintext or with weak encryption are highly vulnerable to breaches. SPHERE enforces encryption at rest, multi-factor authentication, role-based access control, and tamper-proof data integrity verification.
-
+---
 
 ## Features
 
@@ -37,6 +37,7 @@ The system addresses a critical gap in modern healthcare IT: patient records sto
 - **Doctor**: manage diagnoses, view and update appointment statuses
 - **Patient**: view own records, book appointments, manage profile
 
+---
 
 ## Tech Stack
 
@@ -47,20 +48,13 @@ The system addresses a critical gap in modern healthcare IT: patient records sto
 | Framework | FastAPI |
 | ORM | SQLAlchemy |
 | Database | SQLite |
-| Server | Uvicorn (ASGI) |
-| Auth | Custom JWT |
-| Email | SMTP (2FA & password reset) |
-| Config | python-dotenv |
 
 ### Frontend
 | Layer | Technology |
 |-------|-----------|
 | Language | TypeScript |
-| Framework | React |
-| Build Tool | Vite (dev server on port 5173) |
+| Library | React |
 | Styling | Tailwind CSS |
-| HTTP Client | Axios |
-| State | React Hooks + Context API |
 
 ---
 
